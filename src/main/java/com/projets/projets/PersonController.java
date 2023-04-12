@@ -9,10 +9,23 @@ import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import javax.management.Query;
+import javax.swing.*;
+import java.io.Console;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 
 @Controller
 @Component
-public class ChartController {
+public class PersonController implements Serializable {
+    Connection con = null;
+    PreparedStatement st = null;
+    ResultSet rs = null;
     @Autowired
     public PersoRepos persoRepos;
 
@@ -40,6 +53,7 @@ public class ChartController {
     @FXML
     void clearPersonne(MouseEvent event) {
        clear();
+       showPersons();
 
     }
 
@@ -52,6 +66,7 @@ public class ChartController {
     void savePsersone(MouseEvent event) {
         Personnes p = new Personnes(noms.getText(),adresse.getText());
         persoRepos.save(p);
+        //JOptionPane.showMessageDialog(null,"Enregistré effectué");
         clear();
 
     }
@@ -65,6 +80,11 @@ public class ChartController {
         noms.setText(null);
         adresse.setText(null);
         noms.requestFocus();
+    }
+    void showPersons(){
+        persoRepos.findAll();
+        System.out.print(persoRepos.findAll());
+
     }
 
 }

@@ -19,4 +19,7 @@ public class Personnes {
         this.noms = noms;
         this.adress = adress;
     }
+
+    public Personnes() {
+    }
 }
